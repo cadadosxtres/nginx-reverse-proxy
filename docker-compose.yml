@@ -1,0 +1,23 @@
+version: "3"
+services:
+  proxy:
+    container_name: reverse-proxy
+    image: cadadosxtres/reverse-proxy
+    domainname: cadadosxtres.com
+    hostname: reverse-proxy
+    env_file:
+      - proxy.env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./root/etc/ssl/certs/nginx:/etc/ssl/certs/nginx/
+      - ./root/var/log/nginx:/var/log/nginx
+    ports:
+      - "443:443"
+      - "80:80"
+    networks:
+      - proxynetwork
+
+networks:
+  proxynetwork:

@@ -1,0 +1,9 @@
+
+map $host $custom_server_name {
+  default "$CUSTOM_SERVER";
+}
+
+map $host $custom_proxy_pass {
+  default "$CUSTOM_PROXY_URL";
+}
+
