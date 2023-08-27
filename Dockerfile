@@ -1,5 +1,5 @@
 FROM nginx
-EXPOSE 80 443 8123
+EXPOSE 80 443
 
 ENV CUSTOM_SERVER=localhost
 ENV CUSTOM_CERT_FILE_PATH=/etc/ssl/certs/nginx/cert.crt

@@ -5,7 +5,7 @@ PROXY_PASS ?= "https://10.0.0.1:9999"
 up:
 	docker-compose up -d proxy
 run:
-	docker-compose run --name ${CONTAINER_NAME} -p 80:80 -p 443:443 -e 8123:8123 -e CUSTOM_PROXY_URL=${PROXY_PASS} proxy
+	docker-compose run --name ${CONTAINER_NAME} -p 80:80 -p 443:443 -e CUSTOM_PROXY_URL=${PROXY_PASS} proxy
 rm:
 	docker rm -f ${CONTAINER_NAME}
 
