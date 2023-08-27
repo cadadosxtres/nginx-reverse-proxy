@@ -1,5 +1,5 @@
-CONTAINER_NAME=cadadosxtres/reverse-proxy
-CONTAINER_IMAGE=nginx-proxy
+CONTAINER_NAME=reverse-proxy
+CONTAINER_IMAGE=cadadosxtres/reverse-proxy
 PROXY_PASS ?= "https://10.0.0.1:9999"
 
 up:
