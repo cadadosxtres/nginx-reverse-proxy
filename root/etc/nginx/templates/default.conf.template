@@ -8,10 +8,6 @@ server {
     listen 80 default_server;
     server_name _;
     return 301 https://$host$request_uri;
-
-    # logs
-    access_log /var/log/nginx/access.log;
-    error_log /var/log/nginx/error.log error;
 }
 
 server {
@@ -31,6 +27,12 @@ server {
     access_log /var/log/nginx/access.log;
     error_log /var/log/nginx/error.log error;
 
+    # redirect server error pages to the static page /404.html
+    #
+    # error_page  404              /404.html;
+    # location = /404.html {
+    #     root   /usr/share/nginx/html;
+    # }
 
     # redirect server error pages to the static page /50x.html
     #
@@ -39,37 +41,27 @@ server {
         root   /usr/share/nginx/html;
     }
 
-    location ~ /\.ht {
-        deny  all;
-    }
-}
-
-server {
-    listen 8123 ssl default_server;
-    server_name  $custom_server_name;
-
-    ssl_certificate "$CUSTOM_CERT_FILE_PATH";
-    ssl_certificate_key "$CUSTOM_KEY_FILE_PATH";
-    include /etc/nginx/includes/ssl.conf;
-
-    proxy_buffering off;
-
-    location / {
-        include /etc/nginx/includes/proxy.conf;
-        proxy_pass $custom_proxy_pass;
-    }
-    access_log /var/log/nginx/access.log;
-    error_log /var/log/nginx/error.log error;
-
-
-    # redirect server error pages to the static page /50x.html
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
     #
-    error_page   500 502 503 504  /50x.html;
-    location = /50x.html {
-        root   /usr/share/nginx/html;
-    }
+    #location ~ \.php$ {
+    #    proxy_pass   http://127.0.0.1;
+    #}
 
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ {
+    #    root           html;
+    #    fastcgi_pass   127.0.0.1:9000;
+    #    fastcgi_index  index.php;
+    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+    #    include        fastcgi_params;
+    #}
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
     location ~ /\.ht {
         deny  all;
     }
 }
+
