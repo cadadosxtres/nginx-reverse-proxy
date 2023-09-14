@@ -20,7 +20,7 @@ server {
 
     proxy_buffering off;
 
-    location ~* {
+    location ~ /(.+) {
         proxy_pass $custom_proxy_pass;
         include /etc/nginx/includes/proxy.conf;
     }
